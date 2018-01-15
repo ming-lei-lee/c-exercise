@@ -1,0 +1,61 @@
+/*         使用指针和malloc()         */
+
+#include<stdio.h>
+#include<string.h>                   
+#include<stdlib.h>
+
+
+struct name            //结构中包含指针 
+{
+	char *fn;
+	char *ln;
+	double letter;
+};
+
+void getName(struct name *);           
+void makeName(struct name*); 
+void showName(struct name *);
+void chearUp(struct name *);
+
+int main(void)
+{
+	struct name person;
+	getName(&person);
+	makeName(&person);
+	showName(&person);
+	return 0;
+}
+void getName(struct name *pst)
+{
+	char pc[40];
+	printf("enter the first name\n");
+	gets(pc);
+	pst->fn=(char* )malloc(strlen(pc)+1);
+    strcpy(pst->fn,pc);
+	printf("enter the last name\n");
+	gets(pc);
+	pst->ln=(char* )malloc(strlen(pc)+1);
+	strcpy(pst->ln,pc);
+
+}
+
+
+void makeName(struct name *pst)
+{
+	pst->letter=strlen(pst->fn)+strlen(pst->ln);  //空格也被算为一个字符 需要改正
+	
+}
+void showName(struct name *pst)
+{
+
+	printf("%s %s contain %.2f letters",pst->fn,pst->ln,pst->letter);
+
+
+	}
+void chearUp(struct name *pst)
+{
+	free(pst->fn);
+	free(pst->ln);
+
+
+}
