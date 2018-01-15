@@ -1,0 +1,33 @@
+/*   伸缩数组成员   */
+//定义一个指向结构的指针
+#include<stdio.h>
+struct flex 
+{
+	int number;
+	double average;
+	double scores[];
+};
+int main(void)
+{
+	struct flex *pt;
+	int n=5;
+	int i,j;
+	double total=0;
+	pt= malloc( sizeof(struct flex) + n * sizeof(double) );
+	pt->number=n;
+	for(i=0;i<n;i++)
+	{
+		pt->scores[i]=20-i;
+		total+=pt->scores[i];
+	    
+	}
+	pt->average=total/n;
+
+	printf("score:\n");
+	for(j=0;j<n;j++)
+		printf("%.1f\n",pt->scores[j]);
+
+    return 0;
+
+
+}
