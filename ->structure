@@ -1,0 +1,43 @@
+#include<stdio.h>
+#include<string.h>
+struct name 
+{
+	char firstName[20];
+	char lastName[20];
+	double letter;
+};
+
+void getName(struct name *pt);           //指针传递
+void makeName(struct name *pt);
+void showName(struct name *pt);
+
+int main(void)
+{
+	struct name person;
+	getName(&person);
+	makeName(&person);
+	showName(&person);
+	return 0;
+}
+void getName(struct name *pt)
+{
+	printf("enter your first name\n");
+		gets(pt->firstName);
+	printf("enter your last name\n");
+	    gets(pt->lastName);
+
+
+
+}
+void makeName(struct name *pt)
+{
+	pt->letter=strlen(pt->firstName)+strlen(pt->lastName);  //空格也被算为一个字符 需要改正
+
+}
+void showName(struct name *pt)
+{
+
+	printf("%s %s contain %.2f letters",pt->firstName,pt->lastName,pt->letter);
+
+
+}

@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<string.h>                      //使用结构作为形参 返回值为结构
+struct name 
+{
+	char firstName[20];
+	char lastName[20];
+	double letter;
+};
+
+struct name getName(void);           
+struct name makeName(struct name pt);
+void showName(struct name pt);
+
+int main(void)
+{
+	struct name person;
+	person=getName();                   //结构赋值给另一个结构
+	person=makeName(person);
+	showName(person);
+	return 0;
+}
+struct name getName(void)
+{
+	struct name pt;
+
+	printf("enter your first name\n");
+		gets(pt.firstName);
+	printf("enter your last name\n");
+	    gets(pt.lastName);
+		return pt;
+
+
+}
+struct name makeName(struct name pt)
+{
+	pt.letter=strlen(pt.firstName)+strlen(pt.lastName);  //空格也被算为一个字符 需要改正
+	return pt;
+}
+void showName(struct name pt)
+{
+
+	printf("%s %s contain %.2f letters",pt.firstName,pt.lastName,pt.letter);
+	
+
+}
