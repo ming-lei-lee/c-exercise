@@ -1,6 +1,7 @@
 /*   伸缩数组成员   */
 //定义一个指向结构的指针
 #include<stdio.h>
+#include<stdlib.h>    //提供malloc()函数
 struct flex 
 {
 	int number;
