@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<stdlib.h>          //提供exit()函数原型
+#include<string.h>          //提供strlen() strcat()函数原型
+#define LEN 40
+
+int main( int argc,char *argv[] )
+{
+	FILE *ft,*fp;
+	int conect;
+	char name[LEN];
+	int count=0;
+
+	//检查命令行参数
+	if(argc<2)
+	{
+		fprintf(stderr,"Usage: %s filename",argv[0]);
+		exit(1);
+	}
+	//实现输入
+	if((ft=fopen(argv[1],"r"))==NULL)
+	{
+		fprintf(stderr,"Error:fail in opening %s file\n",argv[1]);
+		exit(1);
+	}
+	//实现输出
+	strcpy(name,argv[1]);
+	strcat(name,".red");
+
+	if((fp=fopen(name,"w"))==NULL)
+	{
+		fprintf(stderr,"Error:fail in opening %s file\n",name);
+		exit(2);
+	}
+
+	while((conect=getc(ft))!=EOF)
+	{
+		if(count++ % 3==0)
+			putc(conect,fp);
+
+	}
+	if( fclose(ft)!=0 || fclose(fp)!=0 )
+		fprintf(stderr,"Error:fail in closing file\n");
+	return 0;
+
+}
