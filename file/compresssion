@@ -3,7 +3,7 @@
 #include<string.h>          //提供strlen() strcat()函数原型
 #define LEN 40
 
-int main( int argc,char *argv[] )
+int main( int argc,char *argv[] ) //改写使用标准IO
 {
 	FILE *ft,*fp;
 	int conect;
