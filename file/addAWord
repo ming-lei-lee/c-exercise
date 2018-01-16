@@ -1,0 +1,29 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 40
+
+int main()
+{
+	FILE *fp;
+	char words[MAX];
+	if((fp=fopen("world","a+"))==NULL)
+	{
+		fprintf(stderr,"Error: fail in opening file");
+		exit(1);
+	}
+	puts("Enter world to add to the file;press the enter");
+	puts("key ");
+	while(gets(words)!=NULL && words[0]!='\0')
+	{
+		fprintf(fp,"%s",words);
+	}
+
+	puts("File contain:\n");
+	rewind(fp);
+	while(fscanf(fp,"%s",words)==1)    //不懂？？？
+		puts(words);
+	if(fclose(fp)!=0)
+		fprintf(stderr,"Error: fail in closing file");
+	return 0;
+
+}
