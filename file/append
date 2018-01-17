@@ -1,0 +1,79 @@
+/*把多个文件追加到一个文件*/
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define SLEN 81
+#define BUFFSIZE 3
+
+void append(FILE *source , FILE *desk);
+
+int main()
+{
+	FILE *fa;                                         //指向目标文件
+	FILE *fs;                                         //指向源文件
+	char file_app[SLEN];                              //目标文件的名称
+	char file_scr[SLEN];                              //源文件的名称
+	int  count=0;
+//打开目标文件并建立缓冲区
+	printf("enter the name of destination file\n");
+	gets(file_app);
+	if((fa=fopen(file_app,"a"))==NULL)
+	{
+		fprintf(stderr,"Error: fail in opening %s file",file_app);
+		exit(1);
+	}
+	if( setvbuf(fa,NULL,_IOFBF,BUFFSIZE)!=0 )          //创建缓冲区
+	{
+		fprintf(stderr,"Error: can't creat output buff");
+		exit(2);
+	}
+
+//依次打开源文件并建立缓冲区，并向目标文件写入
+	printf("Enter the first source file name\n");
+	while( gets(file_scr)!=NULL && file_scr[0]!='\0')
+	{
+		if(strcmp(file_app,file_scr)==0)
+		{
+			fputs("Can't create output buffer\n",stderr);
+
+		}
+		else if((fs=fopen(file_scr,"r"))==NULL)
+		{
+			fprintf(stderr,"Can't open %s file\n",file_scr);
+
+		}
+		else
+		{
+			if(setvbuf(fs,NULL,_IOFBF, BUFFSIZE)!=0)
+			{
+				fputs("can't create buff for file",fs);
+				continue;                                         //语句的用处？？？
+			
+			}
+			append(fs,fa);                         //调用append（）函数将源文件内容加到目标文件
+			fclose(fs);
+			count++;
+			printf("file %s has been appended\n",file_scr);
+			puts("the next  source file name(empty line to quit)");
+
+
+		}
+	}
+	printf("Done,%d file appended",count);
+		fclose(fa);
+		return 0;
+}
+
+void append(FILE *source , FILE *desk)
+{
+	size_t type;
+	static char tempt[BUFFSIZE];
+
+	while( ( type=fread(tempt,sizeof(char),BUFFSIZE,source)) >0 )          //数据块 复制 有空字符  ?????? 如何处理
+	{fwrite(tempt,sizeof(char),BUFFSIZE,desk);}
+
+
+
+
+}
