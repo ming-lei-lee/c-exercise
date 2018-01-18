@@ -71,7 +71,11 @@ void append(FILE *source , FILE *desk)
 	static char tempt[BUFFSIZE];
 
 	while( ( type=fread(tempt,sizeof(char),BUFFSIZE,source)) >0 )          //数据块 复制 有空字符  ?????? 如何处理
-	{fwrite(tempt,sizeof(char),BUFFSIZE,desk);}
+	{
+	     //fwrite(tempt,sizeof(char),BUFFSIZE,desk);
+	     fwrite(tempt,sizeof(char),strlen(tempt),desk);            //修改后
+	
+	}
 
 
 
