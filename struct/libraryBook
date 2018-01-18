@@ -1,0 +1,73 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+#define MAXNB 80
+#define MAXBOOKS 50     //图书馆存放的最大书目
+struct book
+{
+	char tital[MAXNB];
+	char author[MAXNB];
+	float  value;
+};
+
+int main(void)
+{
+	FILE *fp;
+	int count=0;
+	int filename,index;
+	char books[MAXNB];
+	struct book library[MAXBOOKS];
+	if( ( fp=fopen("123.dat","a+b") )==NULL )
+	{
+		fprintf(stderr,"Error: fail in opening %s file","123.dat");
+		exit(1);
+	}
+	rewind (fp);
+	//如果文件有内容则显示之
+	//while( (count<MAXBOOKS) && fread(books,sizeof(struct book),1,fp) ==1 )
+	while( (count<MAXBOOKS) && fread(&library[count],sizeof(struct book),1,fp) ==1 )
+	{
+		if(count==0)
+		    puts("Current contect of 123.dat");
+		printf("%s writed by %s , value: %f\n",library[count].tital,library[count].author,library[count].value);
+		count++;
+	}
+
+	//输入图书信息
+	filename=count;
+
+	puts("enter the book name");
+	while( gets(library[count].tital) && library[count].tital[0]!='\0' )
+	{
+		puts("enter the author of book");
+		gets( library[count].author);
+		puts("enter the value of book");
+		scanf("%f",&library[count++].value);
+		while( getchar()!='\n' )      //
+			continue;
+		puts("enter the next book name");
+	}
+
+	//显示所有图书信息，，，并将加入图书信息写入文件
+	if(count>0)
+	{
+		puts("Here is the all books in library");
+		for(index=0;index<count;index++)
+		    printf("%s writed by %s,value: %.2f\n",library[index].tital,library[index].author,library[index].value);
+
+		fwrite(&library[filename],sizeof(struct book),count-filename,fp);
+	}
+	else
+	{
+		printf("No book,too bad");
+	
+	
+	}
+	return 0;
+
+
+
+
+
+
+}
