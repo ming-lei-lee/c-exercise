@@ -1,0 +1,75 @@
+/*  enum1.c
+ *  usage: 
+ * -------------------------------
+ *  Function: This is a programming about 
+ *
+ */
+#include<stdio.h>
+#include<string.h>  
+//  #include<stdbool.h>   浏览器不支持C99 可用enum 代替
+
+#define LEN 20
+
+enum spect { red, blue, yellow, green, violet, orange };
+char *colors[] = { "red", "blue", "yellow", "green", "violet", "orange" };
+enum BOOL { false_, true_};
+
+int main() 
+{
+	enum spect color;
+	char choice[LEN];
+	enum BOOL bool_ = false_;
+
+	
+
+	puts("Enter your color (empter line to stop)");
+	while( gets(choice) != NULL && choice[0] != '\0')
+	{
+		for( color = red; color <= orange; color++ )
+		{
+			if( strcmp( choice,colors[color] ) == 0 )
+			{
+				bool_ = true_;
+				break;			
+			}
+
+		}
+	    if(bool_)
+		{
+			switch (color)
+			{
+
+			     case red     :  puts("0");
+					             break;
+			     case blue    :  puts("1");
+					             break;
+			     case yellow  :  puts("2");
+					             break;
+			     case green   :  puts("3");
+					             break;
+			     case violet  :  puts("4");
+					             break;
+			     case orange  :  puts("5");
+			                     break;
+		
+			}
+		}
+		else
+		  printf(" I don't know about the color ");
+
+		puts("Next coclor ( empty line to quit )");
+	}
+	puts("Goodbye!");
+
+	return 0;
+
+
+
+
+
+
+
+
+
+
+}
